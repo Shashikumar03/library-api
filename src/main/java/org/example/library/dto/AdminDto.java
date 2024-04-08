@@ -22,6 +22,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdminDto {
+
+    private  int id;
     @NotEmpty(message = "please give admin email")
     @Email
     private String adminEmail;
