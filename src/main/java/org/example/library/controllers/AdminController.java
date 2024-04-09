@@ -34,6 +34,7 @@ public class AdminController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/issue")
     public  ResponseEntity<StudentDto> issueBook(@Valid @RequestBody BookDto bookDto, @RequestParam("roll") Integer id){
         StudentDto studentDto = this.adminService.issueBook(id, bookDto);

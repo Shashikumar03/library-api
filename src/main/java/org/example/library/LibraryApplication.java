@@ -42,11 +42,11 @@ public class LibraryApplication  implements CommandLineRunner {
 
             Role role = new Role();
             role.setId(1);
-            role.setName("ADMIN");
+            role.setName("ROLE_ADMIN");
 
             Role role1 = new Role();
             role1.setId(2);
-            role1.setName("NORMAL");
+            role1.setName("ROLE_NORMAL");
 
             List<Role> roles = List.of(role, role1);
 
