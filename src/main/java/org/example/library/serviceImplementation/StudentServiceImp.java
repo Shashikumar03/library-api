@@ -94,7 +94,10 @@ public class StudentServiceImp implements StudentService {
     public StudentDto getStudentByEmail(String email) {
         Student student = this.studentRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("email", "student email", 1));
 
-        return modelMapper.map(student, StudentDto.class);
+        StudentDto map = modelMapper.map(student, StudentDto.class);
+        map.setBooksDto(student.getBooks().stream().map((book)-> this.modelMapper.map(book, BookDto.class)).collect(Collectors.toList()));
+        System.out.println(map.getNoOfBookIssue());
+        return  map;
 
     }
 }
