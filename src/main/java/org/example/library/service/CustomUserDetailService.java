@@ -35,9 +35,12 @@ public class CustomUserDetailService implements UserDetailsService {
                     .password(admin.getAdminPassword())
                     .build();
         } else if (student != null) {
-            return User.withUsername(student.getEmail())
+
+            UserDetails build = User.withUsername(student.getEmail())
                     .password(student.getPassword())
                     .build();
+
+            return  build;
         } else {
             throw new ApiException("User not found with username: " + username);
         }

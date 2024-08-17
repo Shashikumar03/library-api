@@ -33,6 +33,7 @@ public class StudentServiceImp implements StudentService {
     public StudentDto createStudent(StudentDto studentDto) {
         Student student = modelMapper.map(studentDto, Student.class);
         try {
+            System.out.println(student.getPassword()+"fghjghjghjghjgh");
             student.setPassword(passwordEncoder.encode(student.getPassword()));
             if (studentRepository.existsByEmail(studentDto.getEmail())) {
                 throw new DataIntegrityViolationException("A student with the provided email already exists.");
@@ -93,8 +94,11 @@ public class StudentServiceImp implements StudentService {
     @Override
     public StudentDto getStudentByEmail(String email) {
         Student student = this.studentRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("email", "student email", 1));
+        StudentDto studentDto= modelMapper.map(student, StudentDto.class);
+        studentDto.setBooksDto(student.getBooks().stream().map((book)-> this.modelMapper.map(book, BookDto.class)).collect(Collectors.toList()));
+//        System.out.println(.getNoOfBookIssue());
+        return studentDto;
 
-        return modelMapper.map(student, StudentDto.class);
 
     }
 }

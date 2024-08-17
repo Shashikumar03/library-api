@@ -29,7 +29,6 @@ public class BookServiceImp implements BookService {
         try {
             Book book = modelMapper.map(bookDto, Book.class);
             if (this.bookRepository.existsByBookId(book.getBookId())) {
-                System.out.println("shashi   dfghjkl");
                 throw new DataIntegrityViolationException("A book with the provided bookid already exists.");
             }
             Book saveBook = this.bookRepository.save(book);
@@ -53,7 +52,6 @@ public class BookServiceImp implements BookService {
     @Override
     public BookDto getBookById(Integer id) {
         Book book = this.bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("book", "bookId", id));
-        System.out.println(book.getStudent());
         BookDto map = modelMapper.map(book, BookDto.class);
         map.setStudentDto(modelMapper.map(book.getStudent(), StudentDto.class));
         return map;

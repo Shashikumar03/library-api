@@ -22,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentDto {
 
+    Integer roll;
 
 
     @NotBlank(message = "name should not be blank")
@@ -30,6 +31,7 @@ public class StudentDto {
 
     @Email(message = "email should be unique")
     @Column(unique = true)
+    @NotBlank(message = "plz give proper email")
     private String email;
 
     @NotBlank(message = "password should not be blank")
@@ -41,6 +43,17 @@ public class StudentDto {
     @Pattern(regexp = "(^$|[0-9]{10})")
     @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
     private String phoneNumber;
+
+    @NotBlank(message = "Select gender")
+    private String gender;
+//
+    @NotBlank(message = "Enter Address")
+    private String address;
+    @NotNull(message = "Enter Semester")
+    private int semester;
+
+    @NotBlank(message = "Enter department")
+    private String department;
 
     @NotNull(message = "no of issue book can't be empty")
     private int noOfBookIssue;

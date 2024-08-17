@@ -30,19 +30,32 @@ public class Student implements  UserDetails {
     private Integer roll;
 
     private String name;
+
     @Column(unique = true)
+    @NotBlank(message = "email should not be blank")
     @Email(message = "email should be unique")
     private String email;
+
+
     @NotBlank(message = "password should not be blank")
     private String password;
 
     @Column(unique = true)
-
     @NotBlank(message = "Enter Valid Mobile Number")
     @Pattern(regexp = "(^$|[0-9]{10})")
     @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
     private String phoneNumber;
 
+    @NotBlank(message = "Select gender")
+    private String gender;
+    @NotBlank(message = "Enter Address")
+    private String address;
+
+    @NotNull(message = "Enter your semester")
+    private int semester;
+
+    @NotBlank(message = "Enter department")
+    private String department;
 
     @NotNull(message = "please enter number of book issue")
     private int noOfBookIssue;

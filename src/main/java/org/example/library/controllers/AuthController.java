@@ -1,8 +1,10 @@
 package org.example.library.controllers;
 
 
+import org.example.library.entities.Admin;
 import org.example.library.payload.JwtRequest;
 import org.example.library.payload.JwtResponse;
+import org.example.library.repositories.AdminRepository;
 import org.example.library.security.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +27,11 @@ public class AuthController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    AdminRepository adminRepository;
 
     @Autowired
     private JwtHelper helper;
@@ -47,6 +55,11 @@ public class AuthController {
     }
 
     private void doAuthenticate(String email, String password) {
+        Admin admin = adminRepository.findById(1).get();
+
+
+        boolean matches = encoder.matches(password, admin.getPassword());
+        System.out.println(matches);
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(email, password);
         try {
