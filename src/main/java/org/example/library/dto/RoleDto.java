@@ -12,6 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 public class RoleDto {
 
-    @NotEmpty(message = "role should not be empty")
-    String name;
+    private int id;
+    private  String name;
 }

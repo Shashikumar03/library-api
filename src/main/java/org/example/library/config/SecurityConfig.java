@@ -32,7 +32,6 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET).permitAll()
                 .requestMatchers("/auth/login").permitAll()
                 .requestMatchers("/auth/student/login").permitAll()
-                .requestMatchers("/api/users/create","/api/messages/send").permitAll()
                 .requestMatchers("/api/admin/","/api/student/").permitAll()
                 .anyRequest()
                 .authenticated()

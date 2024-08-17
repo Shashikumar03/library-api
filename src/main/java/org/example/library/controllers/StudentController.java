@@ -2,12 +2,15 @@ package org.example.library.controllers;
 
 import jakarta.validation.Valid;
 import org.example.library.dto.StudentDto;
+import org.example.library.entities.Student;
+import org.example.library.repositories.StudentRepository;
 import org.example.library.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +21,9 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    StudentRepository studentRepository;
 
     @PostMapping("/")
     public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto){
@@ -44,5 +50,6 @@ public class StudentController {
         StudentDto studentByEmail = this.studentService.getStudentByEmail(email);
         return new ResponseEntity<>(studentByEmail,HttpStatus.OK);
     }
+
 
 }

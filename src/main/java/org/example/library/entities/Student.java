@@ -7,13 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "student")
@@ -64,11 +64,18 @@ public class Student implements  UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private List<Book> books= new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "student_role", joinColumns = @JoinColumn(name = "student_roll", referencedColumnName = "roll"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authories = this.roles.stream()
+                .map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return authories;
     }
+
 
     @Override
     public String getUsername() {

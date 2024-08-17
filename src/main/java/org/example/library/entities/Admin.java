@@ -37,14 +37,15 @@ public class Admin implements UserDetails {
 
     private  String adminPassword;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role", referencedColumnName = "id"))
-//    private Set<Role> roles = new HashSet<>();
-
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_tables", joinColumns = @JoinColumn(name = "admin_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authories = this.roles.stream()
+                .map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return authories;
     }
 
     @Override

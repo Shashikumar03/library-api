@@ -4,12 +4,10 @@ import jakarta.validation.Valid;
 import org.example.library.dto.AdminDto;
 import org.example.library.dto.BookDto;
 import org.example.library.dto.StudentDto;
-import org.example.library.repositories.AdminRepository;
 import org.example.library.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
