@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageDto {
+public class    MessageDto {
 
-    @NotNull(message = "id not be null")
+//    @NotNull(message = "id not be null")
     private Long id;
 
     @NotNull(message = "senderId not be null")

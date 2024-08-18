@@ -30,21 +30,29 @@ public class MessageServiceImplementation implements MessageService {
 
     @Override
     public MessageDto sendMessage(MessageDto messageDto) {
+        System.out.println("wdefrgthy");
         String senderEmailId = messageDto.getSenderId();
         String receiverEmailId = messageDto.getReceiverId();
-        if(!this.userRepository.existsByEmail(receiverEmailId))
-            throw  new ApiException(receiverEmailId + " this is not a valid user");
-        if(!this.userRepository.existsByEmail(senderEmailId))
-            throw  new ApiException(senderEmailId + " this is not a valid user");
+//        if(!this.userRepository.existsByEmail(receiverEmailId))
+//            throw  new ApiException(receiverEmailId + " this is not a valid user");
+//        if(!this.userRepository.existsByEmail(senderEmailId))
+//            throw  new ApiException(senderEmailId + " this is not a valid user");
 
         messageDto.setTimestamp(LocalDateTime.now());
         Message message = modelMapper.map(messageDto, Message.class);
         Message savedMessage = messageRepository.save(message);
         return modelMapper.map(savedMessage, MessageDto.class);
+
+        // chillaneka code kidhar hai?
     }
 
     @Override
     public List<MessageDto> getMessages(String senderId, String receiverId) {
+        if(!this.userRepository.existsByEmail(senderId))
+            throw  new ApiException(senderId + " this is not a valid user");
+        if(!this.userRepository.existsByEmail(receiverId))
+            throw  new ApiException(receiverId + " this is not a valid user");
+
         // Retrieve messages sorted by timestamp
 //        List<Message> messages = messageRepository.findBySenderIdAndReceiverIdOrderByTimestampAsc(senderId, receiverId);
         List<Message> messages = messageRepository.findMessagesBetweenUsers(senderId, receiverId);
