@@ -1,6 +1,7 @@
 package org.example.library.controllers;
 
 import org.example.library.dto.MessageDto;
+import org.example.library.dto.TypingStatusDto;
 import org.example.library.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -10,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/messages")
@@ -34,14 +34,25 @@ public class ChatController {
         return messageService.getMessageById(id);
     }
 
+    // Handle sending a WebSocket message
     @MessageMapping("/sendMessage")
     @SendTo("/topic/message")
     public MessageDto sendWebSocketMessage(@Payload MessageDto messageDto) {
-        System.out.println(messageDto);
-//        System.out.println("message is comming bro");
-        MessageDto aa= messageService.sendMessage(messageDto);
-        System.out.println(aa);
-        return aa;
-//        return messageDto;
+        MessageDto savedMessage = messageService.sendMessage(messageDto);
+        return savedMessage;
+    }
+
+    // Handle when a user starts typing
+    @MessageMapping("/typing")
+    @SendTo("/topic/typing")
+    public TypingStatusDto handleTyping(@Payload TypingStatusDto typingStatus) {
+        return typingStatus;
+    }
+
+    // Handle when a user stops typing
+    @MessageMapping("/stopTyping")
+    @SendTo("/topic/stopTyping")
+    public TypingStatusDto handleStopTyping(@Payload TypingStatusDto typingStatus) {
+        return typingStatus;
     }
 }
