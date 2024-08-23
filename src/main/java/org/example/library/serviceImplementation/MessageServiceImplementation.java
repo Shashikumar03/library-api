@@ -30,7 +30,7 @@ public class MessageServiceImplementation implements MessageService {
 
     @Override
     public MessageDto sendMessage(MessageDto messageDto) {
-        System.out.println("wdefrgthy");
+
         String senderEmailId = messageDto.getSenderId();
         String receiverEmailId = messageDto.getReceiverId();
 //        if(!this.userRepository.existsByEmail(receiverEmailId))

@@ -38,4 +38,10 @@ public class BookController {
         return new ResponseEntity<>(bookById,HttpStatus.OK);
 
     }
+    @GetMapping("/search")
+    public ResponseEntity<List<BookDto>> getSeacrh(@RequestParam(value = "searchTerm", defaultValue = "")String searchTerm){
+        List<BookDto> bookDtos = this.bookService.searchBookByBookNameOrBookAuthor(searchTerm,searchTerm);
+        return  new ResponseEntity<>(bookDtos,HttpStatus.OK);
+//        return null;
+    }
 }

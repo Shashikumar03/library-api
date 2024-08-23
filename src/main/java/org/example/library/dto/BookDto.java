@@ -23,7 +23,7 @@
         @NotNull
         @Digits(integer = 4, fraction = 0, message = "Please enter a valid bookId")
         @Column(unique = true)
-        @Min(value = 1, message = "bookId must be 1 digits ")
+        @Min(value = 1, message = "min 1 digits and max 4 digit required  for bookId ")
         @Max(value = 9999, message = "bookId must be four digits")
         @Positive(message = "bookId must be greater than zero")
         private int bookId;
@@ -51,9 +51,6 @@
 
         private int totalDaysOfIssueBook;
 
-//        @NotNull(message = "Book semester is required")
-//        @Min(value = 1, message = "Book semester must be greater than 0")
-//        @Max(value = 9, message = "Book semester must be between 1 and 9")
 
 
         @Positive(message = "book semester must be positive number")

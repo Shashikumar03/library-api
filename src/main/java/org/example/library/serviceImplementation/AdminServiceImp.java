@@ -186,6 +186,9 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public StudentDto submitBook(Integer bookId, Integer roll) {
+        if(bookId==null || roll==null || bookId<1 || roll<1) {
+            throw  new ApiException("Invalid request, plz give proper details");
+        }
         Book book = this.bookRepository.findById(bookId)
                 .orElseThrow(() -> new ResourceNotFoundException("book", "bookId", bookId));
 

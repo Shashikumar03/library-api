@@ -54,6 +54,7 @@ public class BookServiceImp implements BookService {
         Book book = this.bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("book", "bookId", id));
         BookDto map = modelMapper.map(book, BookDto.class);
         map.setStudentDto(modelMapper.map(book.getStudent(), StudentDto.class));
+
         return map;
 
 
@@ -70,12 +71,46 @@ public class BookServiceImp implements BookService {
     public List<BookDto> getAllBooks() {
 
         List<Book> all = this.bookRepository.findAll();
-        List<BookDto> booksDto = all.stream().map((book) -> {
-            StudentDto studentDto = this.modelMapper.map(book.getStudent(), StudentDto.class);
-            BookDto bookDto = this.modelMapper.map(book, BookDto.class);
-            bookDto.setStudentDto(studentDto);
-            return bookDto;
-        }).collect(Collectors.toList());
-        return booksDto;
+        List<BookDto> bookDto = all.stream().map((book) -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
+        return bookDto;
     }
+
+    @Override
+    public List<BookDto> getBooksByAuthor(String author) {
+
+        return List.of();
+    }
+
+    @Override
+    public List<BookDto> getBooksByBookName(String bookName) {
+        return List.of();
+    }
+
+    @Override
+    public List<BookDto> searchBookByBookNameOrBookAuthor(String bookName, String bookAuthor) {
+        System.out.println(bookName);
+        System.out.println(bookAuthor);
+        boolean isBookNameFlag= false;
+        boolean isBookAuthorFlag = false;
+        if ((bookName == null || bookName.isEmpty())) {
+            isBookNameFlag=true;
+        }
+
+        if ((bookAuthor == null || bookAuthor.isEmpty())) {
+            isBookAuthorFlag=true;
+
+        }
+//        if(isBookAuthorFlag && isBookNameFlag){
+//            throw  new  ApiException("field should not be empty");
+//        }
+
+        List<Book> books= this.bookRepository.findByBookNameContainingOrBookAuthorContaining(bookName, bookAuthor);
+        if (books.isEmpty()) {
+            throw new ApiException("No books found for the given search criteria.");
+        }
+        List<BookDto> bookDto = books.stream().map((book) -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
+        return bookDto;
+    }
+
+
 }

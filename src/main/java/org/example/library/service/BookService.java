@@ -14,6 +14,9 @@ public interface BookService {
 
     List<BookDto> getAllBooks();
 
+    List<BookDto> getBooksByAuthor(String author);
+    List<BookDto> getBooksByBookName(String bookName);
 
+    List<BookDto> searchBookByBookNameOrBookAuthor(String bookName, String bookAuthor);
 
 }
