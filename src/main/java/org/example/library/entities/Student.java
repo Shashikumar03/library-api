@@ -113,6 +113,13 @@ public class Student implements  UserDetails {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                ", semester=" + semester +
+                ", department='" + department + '\'' +
+                ", noOfBookIssue=" + noOfBookIssue +
+//                ", books=" + books +
+//                ", roles=" + roles +
                 '}';
     }
 }

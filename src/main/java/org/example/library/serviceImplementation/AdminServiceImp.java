@@ -251,4 +251,38 @@ public class AdminServiceImp implements AdminService {
         System.out.println(adminDto);
         return adminDto;
     }
+
+    @Override
+    public BookDto issueAvailableBook(Integer bookId, Integer roll) {
+        Book book = this.bookRepository.findById(bookId).orElseThrow(() -> new ResourceNotFoundException("book", "bookId", bookId));
+        if(book.getDateOfIssue() !=null && book.getDateOfSubmission()== null){
+            throw new ApiException("this book is not available to issue, already assigned to student name:"+book.getStudent().getName()+" roll no: "+book.getStudent().getRoll().toString());
+        }else {
+
+
+            Student student = this.studentRepository.findById(roll).orElseThrow(() -> new ResourceNotFoundException("student", "studendId", roll));
+
+
+            int count = (int) student.getBooks().stream()
+                    .filter(book1 -> book1.getDateOfSubmission() == null)
+                    .count();
+
+            count = count + 1;
+            if (count > 10) {
+                throw new ApiException("already 10 book is issued to this student so this book will not issue");
+            }
+            student.setNoOfBookIssue(count);
+            book.setStudent(student);
+            book.setDateOfIssue(LocalDate.now());
+            book.setTotalDaysOfIssueBook(0);
+            book.setFine(null);
+            book.setDateOfSubmission(null);
+
+            Book book1 = this.bookRepository.save(book);
+            BookDto bookDto = this.modelMapper.map(book1, BookDto.class);
+            bookDto.setStudentDto(modelMapper.map(student, StudentDto.class));
+            return bookDto;
+        }
+
+    }
 }

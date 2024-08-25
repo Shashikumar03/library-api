@@ -21,4 +21,6 @@ public interface AdminService {
     StudentDto submitBook(Integer bookId,Integer roll);
     List<AdminDto> getAllAdmins();
 
+   BookDto issueAvailableBook(Integer bookId, Integer roll);
+
 }

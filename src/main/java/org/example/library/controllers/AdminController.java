@@ -55,4 +55,11 @@ public class AdminController {
         List<AdminDto> allAdmins = this.adminService.getAllAdmins();
         return new ResponseEntity<>(allAdmins,HttpStatus.OK);
     }
+
+    @PostMapping("/available-book")
+    public ResponseEntity<BookDto> issueAvailableBook(@RequestParam("bookId") Integer bookId, @RequestParam("roll") Integer roll) {
+        BookDto bookDto = this.adminService.issueAvailableBook(bookId, roll);
+        return new ResponseEntity<>(bookDto, HttpStatus.CREATED);
+    }
+
 }
