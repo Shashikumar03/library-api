@@ -27,19 +27,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf(csrf -> csrf.disable())
-//                .authorizeRequests()
-//                .requestMatchers(HttpMethod.GET).permitAll()
-//                .requestMatchers("/auth/login").permitAll()
-//                .requestMatchers("/auth/student/login").permitAll()
-//                .requestMatchers("/api/messages/send","/api/users/create").permitAll()
-//                .requestMatchers("api/admin/","api/student/","/api/admin/","/api/student/").permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-//        return http.build();
+        http.csrf(csrf -> csrf.disable())
+                .authorizeRequests()
+                .requestMatchers(HttpMethod.GET).permitAll()
+                .requestMatchers(HttpMethod.POST).permitAll()
+                .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/auth/student/login").permitAll()
+                .requestMatchers("/api/messages/send","/api/users/create").permitAll()
+                .requestMatchers("/api/admin/","/api/student/").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
     }
