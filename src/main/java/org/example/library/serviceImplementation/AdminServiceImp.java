@@ -115,18 +115,18 @@ public class AdminServiceImp implements AdminService {
                     List<BookDto> bookDtos = student.getBooks().stream().map(book2 -> this.modelMapper.map(book2, BookDto.class)).collect(Collectors.toList());
                     StudentDto studentDto = modelMapper.map(student, StudentDto.class);
                     studentDto.setBooksDto(bookDtos);
-                    this.emailSenderService.sendSimpleEmail(
-                            studentDto.getEmail(),
-                            "Book id: " + bb.getBookId() + "\n" +
-                                    "Student Name: " + studentDto.getName() + "\n" +
-                                    "Book Name: " + bb.getBookName() + "\n" +
-                                    "Book semester: " + book.getBookSemester() + "\n" +
-                                    "Date of Issue: " + bb.getDateOfIssue() + "\n\n" +
-                                    "Thanks and Regards,\n" +
-                                    "Shashi Kumar\n" +
-                                    "Mob: 7073052300 \n",
-                            "Book Issued to Roll No " + student.getRoll()
-                    );
+//                    this.emailSenderService.sendSimpleEmail(
+//                            studentDto.getEmail(),
+//                            "Book id: " + bb.getBookId() + "\n" +
+//                                    "Student Name: " + studentDto.getName() + "\n" +
+//                                    "Book Name: " + bb.getBookName() + "\n" +
+//                                    "Book semester: " + book.getBookSemester() + "\n" +
+//                                    "Date of Issue: " + bb.getDateOfIssue() + "\n\n" +
+//                                    "Thanks and Regards,\n" +
+//                                    "Shashi Kumar\n" +
+//                                    "Mob: 7073052300 \n",
+//                            "Book Issued to Roll No " + student.getRoll()
+//                    );
 
 
                     return studentDto;
@@ -154,18 +154,18 @@ public class AdminServiceImp implements AdminService {
             BookDto bb = this.modelMapper.map(save, BookDto.class);
             bookDtos.add(bb);
             studentDto.setBooksDto(bookDtos);
-            this.emailSenderService.sendSimpleEmail(
-                    studentDto.getEmail(),
-                    "Book id: " + bb.getBookId() + "\n" +
-                            "Student Name: " + studentDto.getName() + "\n" +
-                            "Book Name: " + bb.getBookName() + "\n" +
-                            "Book semester: " + book.getBookSemester() + "\n" +
-                            "Date of Issue: " + bb.getDateOfIssue() + "\n\n" +
-                            "Thanks and Regards,\n" +
-                            "Shashi Kumar\n" +
-                            "Mob: 7073052300 \n",
-                    "Book Issued to Roll No " + student.getRoll()
-            );
+//            this.emailSenderService.sendSimpleEmail(
+//                    studentDto.getEmail(),
+//                    "Book id: " + bb.getBookId() + "\n" +
+//                            "Student Name: " + studentDto.getName() + "\n" +
+//                            "Book Name: " + bb.getBookName() + "\n" +
+//                            "Book semester: " + book.getBookSemester() + "\n" +
+//                            "Date of Issue: " + bb.getDateOfIssue() + "\n\n" +
+//                            "Thanks and Regards,\n" +
+//                            "Shashi Kumar\n" +
+//                            "Mob: 7073052300 \n",
+//                    "Book Issued to Roll No " + student.getRoll()
+//            );
             System.out.println("email is successfully send");
 
             return studentDto;
@@ -205,21 +205,21 @@ public class AdminServiceImp implements AdminService {
                 } else {
                     book.setDateOfSubmission(LocalDate.now());
                     student.setNoOfBookIssue(count - 1);
-                    this.emailSenderService.sendSimpleEmail(
-                            student.getEmail(),
-                            "Book id: " + book.getBookId() + "\n" +
-                                    "Student Name: " + student.getName() + "\n" +
-                                    "Book Name: " + book.getBookName() + "\n" +
-                                    "Total days of hiring: " + book.getTotalDaysOfIssueBook() + "\n" +
-                                    "Book semester: " + book.getBookSemester() + "\n" +
-                                    "fine charge: " + book.getFine() + "\n" +
-                                    "Date of Issue: " + book.getDateOfIssue() + "\n" +
-                                    "Date of Submission: " + book.getDateOfSubmission() + "\n\n" +
-                                    "Thanks and Regards,\n" +
-                                    "Shashi Kumar\n" +
-                                    "Mob: 7073052300 \n",
-                            "Book submitted by Roll No " + student.getRoll()
-                    );
+//                    this.emailSenderService.sendSimpleEmail(
+//                            student.getEmail(),
+//                            "Book id: " + book.getBookId() + "\n" +
+//                                    "Student Name: " + student.getName() + "\n" +
+//                                    "Book Name: " + book.getBookName() + "\n" +
+//                                    "Total days of hiring: " + book.getTotalDaysOfIssueBook() + "\n" +
+//                                    "Book semester: " + book.getBookSemester() + "\n" +
+//                                    "fine charge: " + book.getFine() + "\n" +
+//                                    "Date of Issue: " + book.getDateOfIssue() + "\n" +
+//                                    "Date of Submission: " + book.getDateOfSubmission() + "\n\n" +
+//                                    "Thanks and Regards,\n" +
+//                                    "Shashi Kumar\n" +
+//                                    "Mob: 7073052300 \n",
+//                            "Book submitted by Roll No " + student.getRoll()
+//                    );
                     System.out.println("email is successfully send");
 
                     book.setTotalDaysOfIssueBook(0);
