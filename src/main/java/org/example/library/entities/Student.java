@@ -1,5 +1,6 @@
 package org.example.library.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -68,6 +69,9 @@ public class Student implements  UserDetails {
     @JoinTable(name = "student_role", joinColumns = @JoinColumn(name = "student_roll", referencedColumnName = "roll"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(mappedBy = "students",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<Course> courses;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

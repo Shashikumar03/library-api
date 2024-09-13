@@ -60,7 +60,7 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public StudentDto getStudentById(Integer id) {
-        Student student = this.studentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("student", "studen id", id));
+        Student student = this.studentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("student", "student id", id));
 
         int count = (int)student.getBooks().stream()
                 .filter(book -> book.getDateOfSubmission() == null)
